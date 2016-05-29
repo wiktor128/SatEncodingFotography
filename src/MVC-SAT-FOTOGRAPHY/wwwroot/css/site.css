@@ -1,0 +1,15 @@
+﻿/*   <sticky footer>   */ 
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+/*   </sticky footer>   */
+
+#add_new_name_chip_container .chip {
+    margin-bottom: 0.2rem;
+}

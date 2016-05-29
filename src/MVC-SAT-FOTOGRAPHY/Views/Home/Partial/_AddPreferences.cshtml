@@ -1,0 +1,70 @@
+﻿@model List<MVC_SAT_FOTOGRAPHY.Models.Person>
+
+<div class="section">
+    <div class="row">
+        <h4>Customize Preferences</h4>
+    </div>
+        
+    <form method="post" asp-controller="Home" asp-action="Index">
+        @*<div class="input-field col m6 s12">
+            <input  name="Person[0].Name" id="Person_0__Name" />
+        </div>
+        <div class="input-field col m6 s12">
+            <select id="Person_0__PreferedNeighbors"
+                    multiple="multiple"
+                    name="Person[0].PreferedNeighbors">
+                <option disabled></option>
+                <option value="MX">Mexico</option>
+                <option value="CA">Canada</option>
+                <option value="US">USA</option>
+                <option value="FR">France</option>
+                <option value="ES">Spain</option>
+                <option value="DE">Germany</option>
+            </select>
+            @Html.Label("Person[0].PreferedNeighbors")
+        </div>*@
+        <div id="add_preferences_input_container" class="row">
+            @*<div class="input-field col m6 s12">
+                <input  name="Person[0].Name" id="Person_0__Name" />
+            </div>
+            <div class="input-field col m6 s12">
+                <select id="Person_0__PreferedNeighbors"
+                        multiple="multiple"
+                        name="Person[0].PreferedNeighbors">
+                    <option disabled></option>
+                    <option value="MX">Mexico</option>
+                    <option value="CA">Canada</option>
+                    <option value="US">USA</option>
+                    <option value="FR">France</option>
+                    <option value="ES">Spain</option>
+                    <option value="DE">Germany</option>
+                </select>
+                @Html.Label("Person[0].PreferedNeighbors")
+            </div>*@
+        </div>
+        <div class="row">
+            <div class="input-field col m6 s12">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<script id="add_preferences_input_template" type="x-tmpl-mustache">
+    <div class="col m6 s12">
+        <input type="hidden" id="Person_{{order_number}}__Name" name="Person[{{order_number}}].Name" value="{{ person_name }}">
+        <div class="input-field">
+            <select id="Person_{{order_number}}__PreferedNeighbors"
+                    multiple="multiple"
+                    name="Person[{{order_number}}].PreferedNeighbors">
+                <option disabled></option>
+                {{#name_list}}
+                    <option value="{{.}}">{{.}}</option>
+                {{/name_list}}
+            </select>
+            <label for="Person_{{order_number}}__PreferedNeighbors">{{ person_name }}</label>
+        </div>
+    </div>
+</script>
