@@ -13,3 +13,12 @@ body {
 #add_new_name_chip_container .chip {
     margin-bottom: 0.2rem;
 }
+
+.inline-block {
+    display: inline-block;
+}
+
+#reload_preferences_input_button {
+    margin-left: 17px;
+    margin-bottom: 17px;
+}

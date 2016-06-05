@@ -26,7 +26,7 @@
 
   "frameworks": {
     "dnx451": { },
-    "dnxcore50": { }
+    "dnxcore50": { "dependencies": { "System.Diagnostics.Process": "4.0.0-beta-23409" } }
   },
 
   "exclude": [

@@ -31,7 +31,7 @@ function LoadAllPreferenceInputs(nameList) {
         console.log("try add preference for: " + nameList[index]);
     }
 }
-// LoadAllPreferenceInputs(new Array("Michał", "Alex", "Jerzy", "Leszek"))
+
 // input field validation - based on Array:nameList name container
 function ValidateAddNewNameInput(nameList) {
     var input = $('#add_new_name_input');
@@ -56,11 +56,6 @@ $(document).ready(function () {
     // MATERIALIZE INITIALIZATIONS
     $('select').material_select();
 
-
-
-
-
-    
     var nameList = new Array();
 
     // #add_new_name_button on click action
@@ -96,8 +91,60 @@ $(document).ready(function () {
         $(this).parent().remove();
     });
 
+    $(document).on('click', "#reload_preferences_input_button", function (e) {
+        $("#add_preferences_input_container").html("");
+        LoadAllPreferenceInputs(nameList);
+    });
 
+//================== AJAX RESPONSE ==================
+    $(document).on('click', '#submit_button', function (e) {
+        if (nameList.length > 3) {
+            e.preventDefault();
+            var people = $("#main_form").serialize();
+            //var people2 = JSON.stringify($("#main_form"));
+            //console.log(people);
+            //console.log(people2);
+            LoadPreloader();
 
+            $.ajax({
+                url: '/Home/Index',//'@Url.Action("Index", "Home")',
+                //contentType: 'application/html; charset=utf-8',
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                data: people,
+                type: 'Post',
+                //dataType: 'json'
+            })
+            .success(function (result) {
+                console.log("success!!!!");
+                var tempNameArray = new Array();
+                tempNameArray = $.map(result, function (el) { return el });
+                console.log(tempNameArray);
+                LoadResultList(tempNameArray);
+            })
+            .error(function (xhr, status) {
+                console.log("error!!!");
+                alert(status);//watch this
+            })
+        } else {
+            alert("list of names is shorter than 3");
+        }
+    });
+
+//==========   ~/Views/Home/Partial/_ShowResult.cshtml   ==========
+
+    function LoadPreloader() {
+        var template = $('#preloader_template').html();
+        Mustache.parse(template);   // optional, speeds up future uses
+        var rendered = Mustache.render(template);
+        $('#result_container').html(rendered);
+    }
+
+    function LoadResultList(resultList) {
+        var template = $('#result_list_template').html();
+        Mustache.parse(template);   // optional, speeds up future uses
+        var rendered = Mustache.render(template, { result_list: resultList });
+        $('#result_container').html(rendered);
+    }
 
 });
 
