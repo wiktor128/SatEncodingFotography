@@ -76,9 +76,13 @@ namespace SatSolver
             return temp;
         }
 
-        private string FirstCondition() //constraint: at most 2 person has one neighbor
+        /// <summary>
+        /// constraint: at most 2 person has one neighbor
+        /// </summary>
+        /// <returns></returns>
+        private string FirstCondition()
         {
-            string cnf = "";
+            string cnf = "\n c first condition \n";
             for (int index = 0; index < variablesNeighborhood.Count; index++)
             {
                 var item = variablesNeighborhood.ElementAt(index);
@@ -109,9 +113,13 @@ namespace SatSolver
             return cnf;
         }
 
-        private string SecondCondition() //constraint: at least 2 person has one neighbor
+        /// <summary>
+        /// constraint: at least 2 person has one neighbor
+        /// </summary>
+        /// <returns></returns>
+        private string SecondCondition()
         {
-            string cnf = "";
+            string cnf = "\n c second condition \n";
             for (int index = 0; index < variablesNeighborhood.Count; index++)
             {
                 var item = variablesNeighborhood.ElementAt(index);
@@ -140,9 +148,13 @@ namespace SatSolver
             return cnf;
         }
 
-        private string ThirdCondition() //constraint: every person can have max 2 neighbours (or empty neighbour)
+        /// <summary>
+        /// constraint: every person can have max 2 neighbours (or empty neighbour)
+        /// </summary>
+        /// <returns></returns>
+        private string ThirdCondition()
         {
-            string cnf = "";
+            string cnf = "\n c third condition \n";
             for (int index = 0; index < variablesNeighborhood.Count; index++)
             {
                 var item = variablesNeighborhood.ElementAt(index);
@@ -174,9 +186,13 @@ namespace SatSolver
             return cnf;
         }
 
-        private string FourthCondition() //constraint: every person can have exacly (at least?) 2 neighbours (or empty neighbour)
+        /// <summary>
+        /// constraint: every person can have exacly (at least?) 2 neighbours (or empty neighbour)
+        /// </summary>
+        /// <returns></returns>
+        private string FourthCondition()
         {
-            string cnf = "";
+            string cnf = "\n c fourth condition \n";
             Dictionary<string, List<int>> temp = new Dictionary<string, List<int>>();
             foreach (var item in people)
             {
@@ -219,9 +235,13 @@ namespace SatSolver
             return cnf;
         }
 
-        private string FifthCondition() //constraint: person at ends can't be neighbours
+        /// <summary>
+        /// constraint: person at ends can't be neighbours
+        /// </summary>
+        /// <returns></returns>
+        private string FifthCondition() 
         {
-            string cnf = "";
+            string cnf = "\n c fifth condition \n";
             for (int index = 0; index < variablesNeighborhood.Count; index++)
             {
                 var item = variablesNeighborhood.ElementAt(index);
@@ -253,9 +273,13 @@ namespace SatSolver
             return cnf;
         }
 
-        private string SixthCondition() //constraint: person implication for matching variables
+        /// <summary>
+        /// constraint: person implication for matching variables
+        /// </summary>
+        /// <returns></returns>
+        private string SixthCondition()
         {
-            string cnf = "";
+            string cnf = "\n c sixth condition \n";
             for (int index = 0; index < variablesNeighborhood.Count; index++)
             {
                 var item = variablesNeighborhood.ElementAt(index);
@@ -280,9 +304,13 @@ namespace SatSolver
             return cnf;
         }
 
-        private string SeventhCondition() //constraint: every person have at most one position
+        /// <summary>
+        /// constraint: every person have at most one position
+        /// </summary>
+        /// <returns></returns>
+        private string SeventhCondition()
         {
-            string cnf = "";
+            string cnf = "\n c seventh condition \n";
             for (int index = 0; index < variablesPosition.Count; index++)
             {
                 var item = variablesPosition.ElementAt(index);
@@ -305,9 +333,13 @@ namespace SatSolver
             return cnf;
         }
 
-        private string EighthCondition() //constraint: every person have at least one position 
+        /// <summary>
+        /// constraint: every person have at least one position
+        /// </summary>
+        /// <returns></returns>
+        private string EighthCondition()
         {
-            string cnf = "";
+            string cnf = "\n c eighth condition \n";
             for (int index = 0; index < variablesPosition.Count; index++)
             {
                 var item = variablesPosition.ElementAt(index);
@@ -331,9 +363,13 @@ namespace SatSolver
             return cnf;
         }
 
+        /// <summary>
+        /// constraint: every position have at most one person
+        /// </summary>
+        /// <returns></returns>
         private string NinthCondition()
         {
-            string cnf = "";
+            string cnf = "\n c ninth condition \n";
 
             for (int index = 0; index < variablesPosition.Count; index++)
             {
@@ -355,11 +391,15 @@ namespace SatSolver
                 }
             }
             return cnf;
-        } //constraint: every position have at most one person
+        } 
 
+        /// <summary>
+        /// constraint: person at first and last position have only one neighbor
+        /// </summary>
+        /// <returns></returns>
         private string TenthCondition()
         {
-            string cnf = "";
+            string cnf = "\n c tenth condition \n";
             for (int index = 0; index < variablesNeighborhood.Count; index++)
             {
                 var item = variablesNeighborhood.ElementAt(index);
@@ -384,11 +424,15 @@ namespace SatSolver
                 }
             }
             return cnf;
-        } //constraint: person at first and last position have only one neighbor
+        }
 
+        /// <summary>
+        /// constraint: neighbors on position x, which is next to y, have to be neighbor of man on position y
+        /// </summary>
+        /// <returns></returns>
         private string EleventhCondition()
         {
-            string cnf = "";
+            string cnf = "\n c eleventh condition \n";
             for (int index = 0; index < variablesNeighborhood.Count; index++)
             {
                 var item = variablesNeighborhood.ElementAt(index);
@@ -434,6 +478,31 @@ namespace SatSolver
             return cnf;
         }
 
+        /// <summary>
+        /// constraint: preferences
+        /// </summary>
+        /// <returns></returns>
+        private string TwelfthCondition()
+        {
+            string cnf = "\n c twelfth condition \n";
+            for (int index = 0; index < variablesNeighborhood.Count; index++)
+            {
+                var item = variablesNeighborhood.ElementAt(index);
+                var itemKey = item.Key;
+                var itemValue = item.Value;
+
+                //for (int index2 = 0; index2 < people.Count; index2++)
+                //{
+                    if (people[itemValue.Item1] != null && people[itemValue.Item1].Contains(itemValue.Item2))
+                    {
+                        cnf += itemKey + " 0 \n";
+                        ++clauseCount;
+                    }
+                //}
+            }
+            return cnf;
+        }
+
         public string GenerateCNF()
         {
             this.clauseCount = 0;
@@ -454,9 +523,20 @@ namespace SatSolver
             cnf += NinthCondition();
             cnf += TenthCondition();
             cnf += EleventhCondition();
+            cnf += TwelfthCondition();
 
             _lastGeneratedCNF = "p cnf " + (variablesNeighborhood.Count + variablesPosition.Count) + " " + clauseCount + "\n" + cnf;
 
+
+            string temp = "";
+            foreach (var item in getNeighborhoodVars)
+            {
+                temp += item.Key + ":  " + item.Value.Item1 + " " + item.Value.Item2 + "\n";
+            }
+            foreach (var item in getVariablesPosition)
+            {
+                temp += item.Key + ":  " + item.Value.Item1 + " " + item.Value.Item2 + "\n";
+            }
             return _lastGeneratedCNF;
         }
 

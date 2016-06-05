@@ -70,7 +70,7 @@ namespace SatSolver
             }
             catch (Exception e)
             {
-               // MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw e;
             }
         }
 
@@ -79,7 +79,7 @@ namespace SatSolver
             bool problemSolved = false;
             foreach (var line in _rsatReponse)
             {
-                if (line.Contains("SATISFIABLE"))
+                if (line.Contains(" SATISFIABLE"))
                 {
                     problemSolved = true;
                     break;

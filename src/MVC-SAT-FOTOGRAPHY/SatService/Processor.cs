@@ -17,7 +17,7 @@ namespace SatSolver
         private Dictionary<int, Tuple<string, string>> _variablesNeighborhood { get; set; }
         //variable for every possible people position in a row
         private Dictionary<int, Tuple<string, int>> _variablesPosition { get; set; }
-        private List<int> _resultVars;
+        private List<int> _resultVars = null;
 
 
         public Processor(Dictionary<string, List<string>> peoplePreferenceList)
