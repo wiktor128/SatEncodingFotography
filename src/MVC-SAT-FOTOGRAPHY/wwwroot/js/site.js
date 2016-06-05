@@ -98,8 +98,8 @@ $(document).ready(function () {
 
 //================== AJAX RESPONSE ==================
     $(document).on('click', '#submit_button', function (e) {
+        e.preventDefault();
         if (nameList.length > 3) {
-            e.preventDefault();
             var people = $("#main_form").serialize();
             //var people2 = JSON.stringify($("#main_form"));
             //console.log(people);
@@ -115,11 +115,17 @@ $(document).ready(function () {
                 //dataType: 'json'
             })
             .success(function (result) {
-                console.log("success!!!!");
-                var tempNameArray = new Array();
-                tempNameArray = $.map(result, function (el) { return el });
-                console.log(tempNameArray);
-                LoadResultList(tempNameArray);
+
+                //var tempNameArray = new Array();
+                if (result != undefined) {
+                    var tempNameArray = $.map(result, function (el) { return el });
+                    console.log(tempNameArray);
+                    LoadResultList(tempNameArray);
+                } else {
+                    LoadResultMessage("Unsatisfable.");
+                }
+                console.log("after parsing ajax result");
+                
             })
             .error(function (xhr, status) {
                 console.log("error!!!");
@@ -130,7 +136,7 @@ $(document).ready(function () {
         }
     });
 
-//==========   ~/Views/Home/Partial/_ShowResult.cshtml   ==========
+    //==========   ~/Views/Home/Partial/_ShowResult.cshtml   ==========
 
     function LoadPreloader() {
         var template = $('#preloader_template').html();
@@ -143,8 +149,20 @@ $(document).ready(function () {
         var template = $('#result_list_template').html();
         Mustache.parse(template);   // optional, speeds up future uses
         var rendered = Mustache.render(template, { result_list: resultList });
+
         $('#result_container').html(rendered);
     }
+
+    function LoadResultMessage(message) {
+        var template = $('#result_message_template').html();
+        Mustache.parse(template);   // optional, speeds up future uses
+        var rendered = Mustache.render(template, { message: message });
+
+        $('#result_container').html(rendered);
+    }
+
+
+    
 
 });
 

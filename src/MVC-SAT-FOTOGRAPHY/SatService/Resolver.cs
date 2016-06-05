@@ -528,15 +528,15 @@ namespace SatSolver
             _lastGeneratedCNF = "p cnf " + (variablesNeighborhood.Count + variablesPosition.Count) + " " + clauseCount + "\n" + cnf;
 
 
-            string temp = "";
-            foreach (var item in getNeighborhoodVars)
-            {
-                temp += item.Key + ":  " + item.Value.Item1 + " " + item.Value.Item2 + "\n";
-            }
-            foreach (var item in getVariablesPosition)
-            {
-                temp += item.Key + ":  " + item.Value.Item1 + " " + item.Value.Item2 + "\n";
-            }
+            //string temp = "";
+            //foreach (var item in getNeighborhoodVars)
+            //{
+            //    temp += item.Key + ":  " + item.Value.Item1 + " " + item.Value.Item2 + "\n";
+            //}
+            //foreach (var item in getVariablesPosition)
+            //{
+            //    temp += item.Key + ":  " + item.Value.Item1 + " " + item.Value.Item2 + "\n";
+            //}
             return _lastGeneratedCNF;
         }
 
