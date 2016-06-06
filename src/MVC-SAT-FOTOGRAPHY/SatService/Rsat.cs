@@ -25,11 +25,6 @@ namespace SatSolver
             }
         }
 
-        //public string ResultVariables
-        //{
-        //    get { return GetRsatResultVariables(); }
-        //}
-
         public List<int> ResultVariables
         {
             get { return ParseStringToIntList(GetRsatResultVariables()); }
@@ -99,7 +94,6 @@ namespace SatSolver
                     result = line;
                     result = result.Replace('v', ' ').TrimStart();
                     result = result.Remove(result.Length - 2);
-                    //result.TrimEnd();
                     break;
                 }
             }

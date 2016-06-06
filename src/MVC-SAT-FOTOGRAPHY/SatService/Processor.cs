@@ -6,10 +6,9 @@ using System;
 
 namespace SatSolver
 {
-    [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1027:TabsMustNotBeUsed", Justification = "Reviewed. Suppression is OK here.")]
     public class Processor
     {
-
+        #region Private Fields
 
         // person, and prefered neighbour (max 2)
         private Dictionary<string, List<string>> _peoplePreferenceList { get; set; }
@@ -19,18 +18,23 @@ namespace SatSolver
         private Dictionary<int, Tuple<string, int>> _variablesPosition { get; set; }
         private List<int> _resultVars = null;
 
+        #endregion
 
+        #region Constructor
         public Processor(Dictionary<string, List<string>> peoplePreferenceList)
         {
             _peoplePreferenceList = peoplePreferenceList;
         }
+
+        #endregion
+
+        #region Public Methods
 
         public bool Run()
         {
             var rsat = new Rsat();
             Resolver resolver = new Resolver(_peoplePreferenceList);
 
-            //File.WriteAllText(@"problem.cnf", resolver.GenerateCNF());
             rsat.Run(resolver.GenerateCNF());
 
             if (rsat.IsSatisfiable)
@@ -65,9 +69,6 @@ namespace SatSolver
             return peoplePositions;
         }
 
-
-
-
-
+        #endregion
     }
 }

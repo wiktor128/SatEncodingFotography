@@ -8,6 +8,7 @@ namespace SatSolver
 {
     class Resolver
     {
+        #region Private Fields
         // person, and prefered neighbour (max 2)
         private Dictionary<string, List<string>> people;
         //variable for every possible neighbourhood id, name_1, name_2
@@ -15,6 +16,22 @@ namespace SatSolver
         //variable for every possible people position in a row
         private Dictionary<int, Tuple<string, int>> variablesPosition;
 
+        int clauseCount = 0;
+        int countVariable = 0;
+        int numberOfPositions = 0;
+
+        string _lastGeneratedCNF = "";
+        #endregion
+
+        #region Constructor
+        public Resolver(Dictionary<string, List<string>> peoplePreferenceList)
+        {
+            people = peoplePreferenceList;
+            numberOfPositions = people.Count;
+        }
+        #endregion
+
+        #region Private Methods
         public Dictionary<int, Tuple<string, string>> getNeighborhoodVars
         {
             get { return variablesNeighborhood; }
@@ -24,19 +41,6 @@ namespace SatSolver
         {
             get { return variablesPosition; }
         }
-
-        int clauseCount = 0;
-        int countVariable = 0;
-        int numberOfPositions = 0;
-
-        string _lastGeneratedCNF = "";
-
-        public Resolver(Dictionary<string, List<string>> peoplePreferenceList)
-        {
-            people = peoplePreferenceList;
-            numberOfPositions = people.Count;
-        }
-
         private Dictionary<int, Tuple<string, string>> GenerateNeighborhoodVariables()
         {
             Dictionary<int, Tuple<string, string>> temp = new Dictionary<int, Tuple<string, string>>();
@@ -239,7 +243,7 @@ namespace SatSolver
         /// constraint: person at ends can't be neighbours
         /// </summary>
         /// <returns></returns>
-        private string FifthCondition() 
+        private string FifthCondition()
         {
             string cnf = "\n c fifth condition \n";
             for (int index = 0; index < variablesNeighborhood.Count; index++)
@@ -391,7 +395,7 @@ namespace SatSolver
                 }
             }
             return cnf;
-        } 
+        }
 
         /// <summary>
         /// constraint: person at first and last position have only one neighbor
@@ -493,16 +497,18 @@ namespace SatSolver
 
                 //for (int index2 = 0; index2 < people.Count; index2++)
                 //{
-                    if (people[itemValue.Item1] != null && people[itemValue.Item1].Contains(itemValue.Item2))
-                    {
-                        cnf += itemKey + " 0 \n";
-                        ++clauseCount;
-                    }
+                if (people[itemValue.Item1] != null && people[itemValue.Item1].Contains(itemValue.Item2))
+                {
+                    cnf += itemKey + " 0 \n";
+                    ++clauseCount;
+                }
                 //}
             }
             return cnf;
         }
+        #endregion
 
+        #region Public Methods
         public string GenerateCNF()
         {
             this.clauseCount = 0;
@@ -539,6 +545,6 @@ namespace SatSolver
             //}
             return _lastGeneratedCNF;
         }
-
+        #endregion
     }
 }

@@ -23,11 +23,11 @@ function LoadPreferenceInput(personName, orderNumber, nameList) {
     $('select').material_select();
 }
 function LoadAllPreferenceInputs(nameList) {
+    $("#add_preferences_input_container").html("")
     for (index = 0; index < nameList.length; ++index) {
         var tempNameArray = nameList.slice();// copy only array values, not reference
-        //delete tempNameArray[index];
         tempNameArray.remove(index)
-        LoadPreferenceInput(nameList[index], index, tempNameArray);// TODO TO DO NAPRAW TO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SPLICE JEST ZŁY !!!
+        LoadPreferenceInput(nameList[index], index, tempNameArray);
         console.log("try add preference for: " + nameList[index]);
     }
 }
@@ -53,7 +53,7 @@ function ValidateAddNewNameInput(nameList) {
 //==========   ~/Views/Home/Partial/_AddName.cshtml   ==========
 $(document).ready(function () {
 
-    // MATERIALIZE INITIALIZATIONS
+    // MATERIALIZE.CSS INITIALIZATIONS
     $('select').material_select();
 
     var nameList = new Array();
@@ -92,19 +92,19 @@ $(document).ready(function () {
     });
 
     $(document).on('click', "#reload_preferences_input_button", function (e) {
-        $("#add_preferences_input_container").html("");
+        LoadPreloader('#add_preferences_input_container');
         LoadAllPreferenceInputs(nameList);
     });
 
 //================== AJAX RESPONSE ==================
     $(document).on('click', '#submit_button', function (e) {
         e.preventDefault();
-        if (nameList.length > 3) {
+        if (nameList.length >= 3) {
             var people = $("#main_form").serialize();
             //var people2 = JSON.stringify($("#main_form"));
             //console.log(people);
             //console.log(people2);
-            LoadPreloader();
+            LoadPreloader('#result_container');
 
             $.ajax({
                 url: '/Home/Index',//'@Url.Action("Index", "Home")',
@@ -136,13 +136,13 @@ $(document).ready(function () {
         }
     });
 
-    //==========   ~/Views/Home/Partial/_ShowResult.cshtml   ==========
+//==========   ~/Views/Home/Partial/_ShowResult.cshtml   ==========
 
-    function LoadPreloader() {
+    function LoadPreloader(containerID) {
         var template = $('#preloader_template').html();
         Mustache.parse(template);   // optional, speeds up future uses
         var rendered = Mustache.render(template);
-        $('#result_container').html(rendered);
+        $(containerID).html(rendered);
     }
 
     function LoadResultList(resultList) {
@@ -160,10 +160,6 @@ $(document).ready(function () {
 
         $('#result_container').html(rendered);
     }
-
-
-    
-
 });
 
 

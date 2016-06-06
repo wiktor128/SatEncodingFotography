@@ -9,7 +9,7 @@ namespace MVC_SAT_FOTOGRAPHY.Models
     {
         public string Name { get; set; }
 
-        public List<string> PreferedNeighbors { get; set; } // should be max 2
+        public List<string> PreferedNeighbors { get; set; } // should be maximum 2
 
         public static Dictionary<string, List<string>> DictFromPersonList(List<Person> people)
         {
